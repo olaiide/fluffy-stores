@@ -55,7 +55,6 @@ const Nav = styled.div`
 const Navbar = () => {
   const context = useContext(productContext);
   const { cartItems } = context;
-
   return (
     <Nav>
       <h1 className="logo">E-Commerce</h1>

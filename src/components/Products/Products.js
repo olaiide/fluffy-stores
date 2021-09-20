@@ -47,7 +47,13 @@ const Products = () => {
       <Grid>
         {products &&
           products.map((product) => {
-            return <Product product={product} addToCart={addToCartHandler} />;
+            return (
+              <Product
+                key={product.id}
+                product={product}
+                addToCart={addToCartHandler}
+              />
+            );
           })}
       </Grid>
     );

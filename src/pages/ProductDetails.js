@@ -1,8 +1,8 @@
 import { useParams, Link } from "react-router-dom";
 import { useContext, useEffect } from "react";
-import productContext from "../../context/product/productContext";
+import productContext from "../context/product/productContext";
 import styled from "styled-components";
-import Button from "../UI/Button";
+import Button from "../components/UI/Button";
 
 const Container = styled.div`
   padding: 20px;
@@ -49,6 +49,7 @@ const Details = styled.div`
 const ProductDetails = () => {
   const ProductContext = useContext(productContext);
   const { getProducts, products, cartItems } = ProductContext;
+  console.log(ProductContext);
   const { id } = useParams();
   const productDetails = products.filter((detail) => detail.id == id);
 

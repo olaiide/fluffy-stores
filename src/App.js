@@ -3,8 +3,8 @@ import { useContext } from "react";
 import { Route, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Products from "./components/Products/Products";
-import ProductDetails from "./components/pages/ProductDetails";
-import Cart from "./components/pages/Cart";
+import ProductDetails from "./pages/ProductDetails";
+import Cart from "./pages/Cart";
 
 function App() {
   return (
@@ -17,8 +17,8 @@ function App() {
         <Route exact path="/product/:id">
           <ProductDetails />
         </Route>
-        <Route>
-          <Cart exact path="/cart" />
+        <Route exact path="/cart">
+          <Cart />
         </Route>
       </Switch>
     </div>
