@@ -1,9 +1,8 @@
-import { useParams, Link } from "react-router-dom";
-import { useContext, useEffect } from "react";
-import productContext from "../context/product/productContext";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../components/UI/Button";
-
+import { connect } from "react-redux";
+import { addProduct } from "../actions/cartActions";
 const Container = styled.div`
   padding: 20px;
   display: flex;
@@ -46,17 +45,12 @@ const Details = styled.div`
     margin: 0 auto;
   }
 `;
-const ProductDetails = () => {
-  const ProductContext = useContext(productContext);
-  const { getProducts, products, cartItems } = ProductContext;
-  console.log(ProductContext);
+const ProductDetails = ({ product, addProduct }) => {
   const { id } = useParams();
-  const productDetails = products.filter((detail) => detail.id == id);
-
-  useEffect(() => {
-    getProducts();
-  }, []);
-
+  const productDetails = product.filter((detail) => detail.id == id);
+  const addToCart = () => {
+    addProduct(product.map((item) => item.id == id));
+  };
   return (
     <div>
       {productDetails &&
@@ -76,9 +70,8 @@ const ProductDetails = () => {
                 <div>
                   <div className="de">Product details</div>
                   <div className="description">{product.description}</div>
-                  <div>{cartItems.length}</div>
                 </div>
-                <Button>Add to cart</Button>
+                <Button Click={addToCart}>Add to cart</Button>
               </Details>
             </Container>
           );
@@ -87,4 +80,7 @@ const ProductDetails = () => {
   );
 };
 
-export default ProductDetails;
+const mapToStateProps = (state) => ({
+  product: state.products.products,
+});
+export default connect(mapToStateProps, { addProduct })(ProductDetails);

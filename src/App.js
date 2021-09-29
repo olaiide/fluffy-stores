@@ -1,5 +1,4 @@
 import "./App.css";
-import { useContext } from "react";
 import { Route, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Products from "./components/Products/Products";

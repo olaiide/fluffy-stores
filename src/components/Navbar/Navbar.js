@@ -1,8 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { AddShoppingCart } from "@material-ui/icons";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import productContext from "../../context/product/productContext";
+import { connect } from "react-redux";
+
 const Nav = styled.div`
   width: 100%;
   height: 80px;
@@ -52,9 +53,7 @@ const Nav = styled.div`
     border-radius: 50px;
   }
 `;
-const Navbar = () => {
-  const context = useContext(productContext);
-  const { cartItems } = context;
+const Navbar = ({ cart }) => {
   return (
     <Nav>
       <h1 className="logo">E-Commerce</h1>
@@ -65,12 +64,14 @@ const Navbar = () => {
           </span>
 
           <div className="badge__wrapper">
-            <span className="badge">{cartItems.length}</span>
+            <span className="badge">{cart.length}</span>
           </div>
         </Link>
       </div>
     </Nav>
   );
 };
-
-export default Navbar;
+const mapStateToProps = (state) => ({
+  cart: state.products.cart,
+});
+export default connect(mapStateToProps)(Navbar);

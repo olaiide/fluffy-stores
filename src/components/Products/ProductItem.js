@@ -2,6 +2,8 @@ import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../UI/Button";
+import { connect } from "react-redux";
+import { fetchProducts, addProduct } from "../../actions/cartActions";
 const Container = styled.div`
   width: 220px;
   height: 330px;
@@ -46,7 +48,7 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
 `;
-const Product = ({ product: { id, image, title, price }, addToCart }) => {
+const Product = ({ product: { id, image, title, price }, addProduct }) => {
   return (
     <Container>
       <Link to={`/product/${id}`}>
@@ -58,11 +60,15 @@ const Product = ({ product: { id, image, title, price }, addToCart }) => {
         <div className="product__name">{title}</div>
         <h4 className="product__price">₦{price}</h4>
         <ButtonWrapper>
-          <Button Click={addToCart}>Add to cart</Button>
+          <Button Click={() => addProduct(id)}>Add to cart</Button>
         </ButtonWrapper>
       </Wrapper>
     </Container>
   );
 };
-
-export default Product;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addProduct: (id) => dispatch(addProduct(id)),
+  };
+};
+export default connect(null, mapDispatchToProps)(Product);

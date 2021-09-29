@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { useContext, useEffect } from "react";
-import Product from "./Product";
-import productContext from "../../context/product/productContext";
+import { useEffect } from "react";
+import ProductItem from "./ProductItem";
+import { connect } from "react-redux";
+import { fetchProducts, addProduct } from "../../actions/cartActions";
 import "antd/dist/antd.css";
 import { Skeleton } from "antd";
 const Wrapper = styled.div`
@@ -24,16 +25,13 @@ const Grid = styled.div`
     grid-template-columns: repeat(1, 0.3fr);
   }
 `;
-const Products = () => {
-  const context = useContext(productContext);
-  const { products, getProducts, loading, addToCart } = context;
-  const addToCartHandler = () => {
-    addToCart(products);
-  };
+const Products = ({ product: { loading, products }, fetchProducts }) => {
   useEffect(() => {
-    getProducts();
+    fetchProducts();
   }, []);
-
+  /* const addToCart = (item) => {
+    addProduct(item);
+  };*/
   if (loading) {
     return (
       <Wrapper>
@@ -47,17 +45,21 @@ const Products = () => {
       <Grid>
         {products &&
           products.map((product) => {
-            return (
-              <Product
-                key={product.id}
-                product={product}
-                addToCart={addToCartHandler}
-              />
-            );
+            return <ProductItem product={product} />;
           })}
       </Grid>
     );
   }
 };
-
-export default Products;
+const mapStateToProps = (state) => ({
+  product: state.products,
+});
+/*
+const mapDispatchToProps = dispatch => {
+  return{
+    addProduct : () => dispatch(addProduct())
+  }
+}*/
+export default connect(mapStateToProps, { fetchProducts, addProduct })(
+  Products
+);
