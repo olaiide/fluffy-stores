@@ -3,9 +3,7 @@ import {
   GET_PRODUCTS_SUCCESS,
   ADD_PRODUCT,
   REMOVE_PRODUCT,
-  CLEAR_PRODUCT,
-  INCREASE_PRODUCT,
-  DECREASE_PRODUCT,
+  ADJUST_QUANTITY,
 } from "./types";
 import axios from "axios";
 
@@ -30,16 +28,18 @@ export const addProduct = (itemId, value) => {
   };
 };
 
-export const removeProduct = (id) => {
+export const removeProduct = (itemId) => {
   return {
     type: REMOVE_PRODUCT,
-    payload: id,
+    payload: {
+      id: itemId,
+    },
   };
 };
-
-export const clearProduct = () => {
+export const adjustQuantity = (item) => {
   return {
-    type: CLEAR_PRODUCT,
+    type: ADJUST_QUANTITY,
+    payload: item,
   };
 };
 

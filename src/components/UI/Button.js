@@ -14,8 +14,18 @@ const StyledButton = styled.button`
   cursor: pointer;
   &:hover {
     opacity: 0.76;
-    background-color: green;
+    background-color: #915329;
+    background-color: #591f08;
   }
+  @media screen and (max-width: 768px) {
+    width: 90%;
+  }
+  /* @media screen and (min-width: 480px) and (max-width: 660px) {
+    width: 90%;
+  }
+  @media screen and (max-width: 480px) {
+    width: 90%;
+  }*/
 `;
 const Button = ({ children, Click }) => {
   return <StyledButton onClick={Click}>{children}</StyledButton>;

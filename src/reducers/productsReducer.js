@@ -1,17 +1,14 @@
+import { decreaseItem, removeItem } from "../actions/cartUtilis";
 import {
   GET_PRODUCTS,
   GET_PRODUCTS_SUCCESS,
   ADD_PRODUCT,
   REMOVE_PRODUCT,
-  CLEAR_PRODUCT,
-  INCREASE_PRODUCT,
-  DECREASE_PRODUCT,
+  ADJUST_QUANTITY,
 } from "../actions/types";
-import { addItemToCart } from "../actions/cartUtilis";
 export const initialState = {
   products: null,
   cart: [],
-  totalAmountToPay: 0,
   loading: false,
 };
 
@@ -47,10 +44,20 @@ const productsReducer = (state = initialState, action) => {
       };
     }
 
-   
-    case REMOVE_PRODUCT : {
-      
+    case REMOVE_PRODUCT: {
+      return {
+        ...state,
+        cart: removeItem(state.cart, action.payload),
+      };
     }
+
+    case ADJUST_QUANTITY: {
+      return {
+        ...state,
+        cart: decreaseItem(state.cart, action.payload),
+      };
+    }
+
     default:
       return state;
   }
